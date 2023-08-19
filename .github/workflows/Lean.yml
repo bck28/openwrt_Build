@@ -16,6 +16,7 @@ on:
         default: 'false'
 
 env:
+  DEPLOY_SERVER: false
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_COWTRANSFER: true
@@ -162,6 +163,7 @@ jobs:
         
     - name: Deploy imagebuilder to server
       uses: easingthemes/ssh-deploy@main
+      if: env.DEPLOY_SERVER == 'true'
       with:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         ARGS: "-avzr --exclude="
