@@ -17,10 +17,10 @@ on:
 
 env:
   UPLOAD_BIN_DIR: false
-  UPLOAD_FIRMWARE: false
+  UPLOAD_FIRMWARE: true
   UPLOAD_COWTRANSFER: true
   UPLOAD_WETRANSFER: false
-  UPLOAD_RELEASE: false
+  UPLOAD_RELEASE: true
   SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
   PASSWORD: ${{ secrets.PASSWORD }}
   REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
@@ -235,7 +235,7 @@ jobs:
       uses: softprops/action-gh-release@master
       if: steps.tag.outputs.status == 'success' && !cancelled()
       env:
-        GITHUB_TOKEN: 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
+        GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
       with:
         files: "${{ env.FIRMWARE }}/*"
         name: ${{ env.date2 }} ${{matrix.target}}
